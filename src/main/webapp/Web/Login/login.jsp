@@ -13,13 +13,17 @@
 <body>
 <%
     Cookie[] cooike=request.getCookies();
+    session.setAttribute("name","");
+    session.setAttribute("pwd","");
     if(cooike!=null){
         for(Cookie c:cooike){
             String name=c.getName();
             String pwd=c.getValue();
-            if(name=="name"){
-                session.setAttribute("name",name);
-                session.setAttribute("pwd",pwd);
+            if("name".equals(name)){
+                session.setAttribute("name",c.getValue());
+            }
+            if("pwd".equals(c.getName())){
+                session.setAttribute("pwd",c.getValue());
             }
         }
     }
@@ -27,7 +31,7 @@
 %>
 <form action="logined.jsp">
     账号：<input type="text" name="name" value="<%=session.getAttribute("name")%>"><br>
-    密码：<input type="password" name="pwd" value="<%=session.getAttribute("pwd")%>"><br>
+    密码：<input type="text" name="pwd" value="<%=session.getAttribute("pwd")%>"><br>
     <input type="submit" value="Submit">
 </form>
 </body>
